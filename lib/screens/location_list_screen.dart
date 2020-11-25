@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/add_location_screen.dart';
+
 class LocationListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,9 @@ class LocationListScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddLocationScreen.routeName);
+            },
           ),
         ],
       ),
