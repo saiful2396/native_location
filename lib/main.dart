@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: PlaceProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Location App Use Google Maps',
         theme: ThemeData(
           primarySwatch: Colors.indigo,

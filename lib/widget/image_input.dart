@@ -6,37 +6,34 @@ import 'package:path/path.dart' as paths;
 import 'package:path_provider/path_provider.dart' as sysPaths;
 
 class ImageInput extends StatefulWidget {
+  final Function onSelectImage;
+
+  ImageInput(this.onSelectImage);
+
   @override
   _ImageInputState createState() => _ImageInputState();
 }
 
 class _ImageInputState extends State<ImageInput> {
-  File _storeImage;
+  File _storedImage;
   final _picker = ImagePicker();
 
   Future<void> _takeImage() async {
-    final imageFile = await _picker.getImage(
+    final file = await _picker.getImage(
       source: ImageSource.camera,
       maxWidth: 600,
     );
+    if (file == null) {
+      return;
+    }
+    final File imageFile = File(file.path);
     setState(() {
-      if (imageFile != null) {
-        _storeImage = File(imageFile.path);
-      } else {
-        print('No image selected.');
-      }
+      _storedImage = File(imageFile.path);
     });
     final appDir = await sysPaths.getApplicationDocumentsDirectory();
     final fileName = paths.basename(imageFile.path);
-    final savedImage = '${appDir.path}/$fileName';
-  }
-
-  Future<void> retrieveLostData() async {
-    final LostData response =
-    await _picker.getLostData();
-    if (response.isEmpty) {
-      return;
-    }
+    final savedImage = await imageFile.copy('${appDir.path}/$fileName');
+    widget.onSelectImage(savedImage);
   }
 
   @override
@@ -52,9 +49,9 @@ class _ImageInputState extends State<ImageInput> {
             decoration: BoxDecoration(
               border: Border.all(width: 1, color: Colors.grey),
             ),
-            child: _storeImage != null
+            child: _storedImage != null
                 ? Image.file(
-                    _storeImage,
+                    _storedImage,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   )
