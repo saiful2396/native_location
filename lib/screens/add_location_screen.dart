@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widget/image_input.dart';
+import '../widget/location_input.dart';
 import '../provider/places_provider.dart';
 
 class AddLocationScreen extends StatefulWidget {
@@ -43,17 +44,22 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _titleController,
-                    decoration: InputDecoration(
-                      labelText: 'Title',
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _titleController,
+                      decoration: InputDecoration(
+                        labelText: 'Title',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  ImageInput(_selectImage),
-                ],
+                    SizedBox(height: 10),
+                    ImageInput(_selectImage),
+                    SizedBox(height: 10),
+                    LocationInput(),
+                  ],
+                ),
               ),
             ),
           ),

@@ -38,39 +38,36 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          Container(
-            height: 100,
-            width: 150,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Colors.grey),
-            ),
-            child: _storedImage != null
-                ? Image.file(
-                    _storedImage,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  )
-                : Text(
-                    'No Image Selected',
-                    textAlign: TextAlign.center,
-                  ),
+    return Row(
+      children: [
+        Container(
+          height: 100,
+          width: 150,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: Colors.grey),
           ),
-          SizedBox(width: 10),
-          Expanded(
-            child: FlatButton.icon(
-              onPressed: _takeImage,
-              icon: Icon(Icons.camera_alt_outlined),
-              textColor: Theme.of(context).primaryColor,
-              label: Text('Take Picture'),
-            ),
+          child: _storedImage != null
+              ? Image.file(
+                  _storedImage,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                )
+              : Text(
+                  'No Image Selected',
+                  textAlign: TextAlign.center,
+                ),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: FlatButton.icon(
+            onPressed: _takeImage,
+            icon: Icon(Icons.camera_alt_outlined),
+            textColor: Theme.of(context).primaryColor,
+            label: Text('Take Picture'),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
