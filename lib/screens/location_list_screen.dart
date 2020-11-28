@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:native_location/screens/location_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/add_location_screen.dart';
@@ -20,7 +21,8 @@ class LocationListScreen extends StatelessWidget {
           ],
         ),
         body: FutureBuilder(
-            future: Provider.of<PlaceProvider>(context, listen: false).fetchAndSetPlaces(),
+            future: Provider.of<PlaceProvider>(context, listen: false)
+                .fetchAndSetPlaces(),
             builder: (context, snapshot) => snapshot.connectionState ==
                     ConnectionState.waiting
                 ? Center(
@@ -43,8 +45,14 @@ class LocationListScreen extends StatelessWidget {
                               title: Text(
                                 getPlace.item[i].title,
                               ),
+                              subtitle: Text(
+                                getPlace.item[i].location.address,
+                              ),
                               onTap: () {
-                                //TODO Details page to implement here;
+                                Navigator.of(context).pushNamed(
+                                  LocationDetailsScreen.routeName,
+                                  arguments: getPlace.item[i].id,
+                                );
                               },
                             ),
                           ),

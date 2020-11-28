@@ -4,18 +4,36 @@ import 'package:flutter/foundation.dart';
 
 import '../models/place.dart';
 import '../helper/db_helper.dart';
+import '../helper/location_helper.dart';
 
 class PlaceProvider with ChangeNotifier {
   List<Place> _item = [];
 
   List<Place> get item => [..._item];
 
-  void addPlace(String pickedTitle, File pickedImage) {
+  Place findById(String id){
+    return _item.firstWhere((place) => place.id == id);
+  }
+
+  Future<void> addPlace(
+    String pickedTitle,
+    File pickedImage,
+    PlaceLocation pickedLocation,
+  ) async {
+    final newAddress = await LocationHelper.getPlaceAddress(
+      pickedLocation.latitude,
+      pickedLocation.longitude,
+    );
+    final updatedLocation = PlaceLocation(
+      latitude: pickedLocation.latitude,
+      longitude: pickedLocation.longitude,
+      address: newAddress,
+    );
     final newPlace = Place(
       id: DateTime.now().toString(),
       title: pickedTitle,
       image: pickedImage,
-      location: null,
+      location: updatedLocation,
     );
     _item.add(newPlace);
     notifyListeners();
@@ -23,39 +41,27 @@ class PlaceProvider with ChangeNotifier {
       'id': newPlace.id,
       'title': newPlace.title,
       'image': newPlace.image.path,
+      'loc_lat': newPlace.location.latitude,
+      'loc_lng': newPlace.location.longitude,
+      'address': newPlace.location.address,
     });
   }
 
-  /*Future<void> fetchAndSetData() async {
-    final dataList = await DBHelper.getData('user_places');
-    _item = dataList
-        .map(
-          (element) => Place(
-            id: element['id'],
-            title: element['title'],
-            location: null,
-            image: File(element['image']),
-          ),
-        )
-        .toList();
-    notifyListeners();
-  }*/
   Future<void> fetchAndSetPlaces() async {
     final dataList = await DBHelper.getData('user_places');
     _item = dataList
         .map(
           (item) => Place(
-        id: item['id'],
-        title: item['title'],
-        image: File(item['image']),
-        location: null,
-        /*location: PlaceLocation(
-          latitude: item['loc_lat'],
-          longitude: item['loc_lng'],
-          address: item['address'],
-        ),*/
-      ),
-    )
+            id: item['id'],
+            title: item['title'],
+            image: File(item['image']),
+            location: PlaceLocation(
+              latitude: item['loc_lat'],
+              longitude: item['loc_lng'],
+              address: item['address'],
+            ),
+          ),
+        )
         .toList();
     notifyListeners();
   }
