@@ -11,7 +11,7 @@ class PlaceProvider with ChangeNotifier {
 
   List<Place> get item => [..._item];
 
-  Place findById(String id){
+  Place findById(String id) {
     return _item.firstWhere((place) => place.id == id);
   }
 

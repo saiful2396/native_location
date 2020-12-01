@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:native_location/screens/location_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/add_location_screen.dart';
+import '../screens/location_details_screen.dart';
 import '../provider/places_provider.dart';
 
 class LocationListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Your Location'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.of(context).pushNamed(AddLocationScreen.routeName);
-              },
-            ),
-          ],
-        ),
-        body: FutureBuilder(
-            future: Provider.of<PlaceProvider>(context, listen: false)
-                .fetchAndSetPlaces(),
-            builder: (context, snapshot) => snapshot.connectionState ==
-                    ConnectionState.waiting
-                ? Center(
+      appBar: AppBar(
+        title: const Text('Your Location'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddLocationScreen.routeName);
+            },
+          ),
+        ],
+      ),
+      body: FutureBuilder(
+        future: Provider.of<PlaceProvider>(context, listen: false)
+            .fetchAndSetPlaces(),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : Consumer<PlaceProvider>(
@@ -56,6 +56,8 @@ class LocationListScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                  )));
+                  ),
+      ),
+    );
   }
 }

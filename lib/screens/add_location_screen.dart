@@ -49,7 +49,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Your Location'),
+        title: const Text('Add Your Location'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,7 +57,8 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   children: [
                     TextField(
@@ -76,8 +77,8 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
             ),
           ),
           RaisedButton.icon(
-            icon: Icon(Icons.add),
-            label: Text('Add Location'),
+            icon: const Icon(Icons.add),
+            label: const Text('Add Location'),
             color: Theme.of(context).accentColor,
             textColor: Colors.white,
             elevation: 0,

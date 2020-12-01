@@ -53,7 +53,7 @@ class _ImageInputState extends State<ImageInput> {
                   fit: BoxFit.cover,
                   width: double.infinity,
                 )
-              : Text(
+              : const Text(
                   'No Image Selected',
                   textAlign: TextAlign.center,
                 ),
@@ -62,9 +62,9 @@ class _ImageInputState extends State<ImageInput> {
         Expanded(
           child: FlatButton.icon(
             onPressed: _takeImage,
-            icon: Icon(Icons.camera_alt_outlined),
+            icon: const Icon(Icons.camera_alt_outlined),
             textColor: Theme.of(context).primaryColor,
-            label: Text('Take Picture'),
+            label: const Text('Take Picture'),
           ),
         ),
       ],

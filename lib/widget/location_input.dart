@@ -28,7 +28,7 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   Future<void> _getUserCurrentLocation() async {
-    try{
+    try {
       final locData = await Location().getLocation();
       _showPreview(
         locData.latitude,
@@ -38,7 +38,7 @@ class _LocationInputState extends State<LocationInput> {
         locData.latitude,
         locData.longitude,
       );
-    }catch(error){
+    } catch (error) {
       return;
     }
   }
@@ -80,7 +80,7 @@ class _LocationInputState extends State<LocationInput> {
             ),
           ),
           child: _previewImageUrl == null
-              ? Text(
+              ? const Text(
                   'No Location chosen!',
                   textAlign: TextAlign.center,
                 )
@@ -95,14 +95,14 @@ class _LocationInputState extends State<LocationInput> {
           children: [
             FlatButton.icon(
               onPressed: _getUserCurrentLocation,
-              icon: Icon(Icons.location_on),
-              label: Text('Current location'),
+              icon: const Icon(Icons.location_on),
+              label: const Text('Current location'),
               textColor: Theme.of(context).primaryColor,
             ),
             FlatButton.icon(
               onPressed: _selectMap,
-              icon: Icon(Icons.map),
-              label: Text('Select on Map'),
+              icon: const Icon(Icons.map),
+              label: const Text('Select on Map'),
               textColor: Theme.of(context).primaryColor,
             ),
           ],

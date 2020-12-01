@@ -17,9 +17,13 @@ class LocationDetailsScreen extends StatelessWidget {
         title: Text(selectedPlace.title),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        actions: [IconButton(icon: Icon(Icons.backspace_outlined), onPressed: (){
-          Navigator.of(context).pop();
-        })],
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.backspace_outlined),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })
+        ],
       ),
       body: Column(
         children: [
@@ -52,8 +56,8 @@ class LocationDetailsScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(Icons.map),
-            label: Text('View On Map'),
+            icon: const Icon(Icons.map),
+            label: const Text('View On Map'),
           ),
         ],
       ),
